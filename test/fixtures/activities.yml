@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  duration_in_minutes: 1.5
+  gender: MyString
+  level: MyString
+  maximum_participants_number: 1
+  participants_count: 1
+  per_participant_price_cents: 1
+  starts_at: 2023-01-31 16:04:36
+  sport: one
+
+two:
+  duration_in_minutes: 1.5
+  gender: MyString
+  level: MyString
+  maximum_participants_number: 1
+  participants_count: 1
+  per_participant_price_cents: 1
+  starts_at: 2023-01-31 16:04:36
+  sport: two

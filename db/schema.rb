@@ -10,10 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_31_145341) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_31_150436) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "activities", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.float "duration_in_minutes"
+    t.string "gender"
+    t.string "level"
+    t.integer "maximum_participants_number"
+    t.integer "participants_count"
+    t.integer "per_participant_price_cents"
+    t.datetime "starts_at"
+    t.uuid "sport_id", null: false
+    t.uuid "owner_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_id"], name: "index_activities_on_owner_id"
+    t.index ["sport_id"], name: "index_activities_on_sport_id"
+  end
+
+  create_table "sports", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -36,4 +58,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_31_145341) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "activities", "sports"
+  add_foreign_key "activities", "users", column: "owner_id"
 end

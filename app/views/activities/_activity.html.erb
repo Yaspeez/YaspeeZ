@@ -1,0 +1,47 @@
+<div id="<%= dom_id activity %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Duration in minutes:</strong>
+    <%= activity.duration_in_minutes %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Gender:</strong>
+    <%= activity.gender %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Level:</strong>
+    <%= activity.level %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Maximum participants number:</strong>
+    <%= activity.maximum_participants_number %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Participants count:</strong>
+    <%= activity.participants_count %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Per participant price cents:</strong>
+    <%= activity.per_participant_price_cents %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Starts at:</strong>
+    <%= activity.starts_at %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Sport:</strong>
+    <%= activity.sport_id %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this activity", activity, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Edit this activity', edit_activity_path(activity), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>
