@@ -8,7 +8,19 @@
     <%= link_to 'New sport', new_sport_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
 
-  <div id="sports" class="min-w-full">
-    <%= render @sports %>
+  <%= form_with(url: sports_path, method: :get) do |form| %>
+    <%= form.text_field :q %>
+    <%= form.submit "Rechercher" %>
+  <% end %>
+
+  <div id="sports" class="h-full">
+    <div class="grid grid-cols-2">
+      <span class="text-center">Sport Classiques</span>
+      <span class="text-center bg-gray-300 text-gray-500 italic shadow-inner">Sport Inédits</span>
+    </div>
+    <ul>
+      <%= render @sports %>
+    </ul>
+    <%== pagy_nav(@pagy) %>
   </div>
 </div>

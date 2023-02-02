@@ -3,7 +3,11 @@ class SportsController < ApplicationController
 
   # GET /sports or /sports.json
   def index
-    @sports = Sport.all
+    if params[:q]
+      @pagy, @sports = pagy(Sport.search_by_name(params[:q]))
+    else
+      @pagy, @sports = pagy(Sport.all)
+    end
   end
 
   # GET /sports/1 or /sports/1.json
