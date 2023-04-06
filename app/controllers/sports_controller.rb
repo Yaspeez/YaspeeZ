@@ -3,7 +3,7 @@ class SportsController < ApplicationController
 
   # GET /sports or /sports.json
   def index
-    if params[:q]
+    if params[:q] && params[:q].present?
       @pagy, @sports = pagy(Sport.search_by_name(params[:q]))
     else
       @pagy, @sports = pagy(Sport.all)
@@ -12,6 +12,7 @@ class SportsController < ApplicationController
 
   # GET /sports/1 or /sports/1.json
   def show
+    @future_activities = @sport.future_activities_for(current_user)
   end
 
   # GET /sports/new

@@ -1,15 +1,145 @@
-<div class="mx-auto md:w-2/3 w-full flex">
-  <div class="mx-auto">
-    <% if notice.present? %>
-      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-    <% end %>
-
-    <%= render @activity %>
-
-    <%= link_to 'Edit this activity', edit_activity_path(@activity), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
-      <%= button_to 'Destroy this activity', activity_path(@activity), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
-    </div>
-    <%= link_to 'Back to activities', activities_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+<% content_for :header_title, @activity.sport.name %>
+<% content_for :header_back_link, activities_path %>
+<% content_for :header_main do %>
+  <div class="flex flex-col items-center justify-center">
+    <p class="italic font-light"><%= @activity.level %></p>
   </div>
+<% end %>
+
+<div class="y-card-main space-y-5">
+  <div>
+    <% if current_user.eql?(@activity.owner) %>
+      <div class="flex justify-center">
+        <span class="flex-shrink-0 rounded-full bg-green-100 py-1 px-2 text-sm font-medium text-green-800">J'organise</span>
+      </div>
+    <% else %>
+      <p>Activité organisée par</p>
+      <div class="flex items-center space-x-4">
+        <div class="w-14 h-14 flex items-center overflow-hidden rounded-full shrink-0">
+          <%= image_tag url_for(@activity.owner.avatar) if @activity.owner.avatar.attached? %>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-gray-500"><%= @activity.owner.nickname %></span>
+          <%= link_to "Voir le profil", athlete_path(@activity.owner), class: "text-blue-500 underline" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <ul class="list-none text-sm space-y-2 -mx-5 p-5 bg-white">
+    <li class="flex items-center space-x-2">
+      <%= inline_svg_tag "svg/clock.svg", class: "w-4" %>
+      <span><%= l(@activity.starts_at, format: "%A %d/%m/%Y - %Hh%M").capitalize %></span>
+    </li>
+    <li class="flex items-center space-x-2">
+      <%= inline_svg_tag "svg/map-pin.svg", class: "w-4" %>
+      <div class="flex flex-col">
+        <span><%= @activity.address %></span>
+        <span><%= @activity.postal_code %> <%= @activity.city_name %></span>
+      </div>
+    </li>
+    <li class="flex items-center space-x-2">
+      <%= inline_svg_tag "svg/user-circle.svg", class: "w-4" %>
+      <span>Genre&nbsp;: <%= @activity.gender %></span>
+    </li>
+    <li class="flex flex-col <%= "space-y-2" if @activity.participants.count > 0 %>">
+      <div class="flex justify-between">
+        <div class="flex items-center space-x-2">
+          <%= inline_svg_tag "svg/user-group.svg", class: "w-4" %>
+          <span>Participants&nbsp;: <%= @activity.participants.count %> / <%= @activity.maximum_participants_number %></span>
+        </div>
+        <%= link_to activity_participants_path(@activity), class: "flex space-x-2" do %>
+          <span class="italic text-sm">Voir plus</span>
+          <%= inline_svg_tag "svg/chevron-right.svg", class: "w-4" %>
+        <% end %>
+      </div>
+      <ul class="list-none flex space-x-1">
+        <% @participants.first(5).each do |participant| %>
+          <li class="bg-cover bg-center rounded-full w-8 h-8 shrink-0" style="background-image: url(<%= url_for(participant.user.avatar.present? ? participant.user.avatar : "" ) %>);"></li>
+        <% end %>
+      </ul>
+    </li>
+    <li class="flex items-center space-x-2">
+      <%= inline_svg_tag "svg/banknotes.svg", class: "w-4" %>
+      <span>Tarif par participant&nbsp;: <%= number_to_euro(@activity.per_participant_price_euros) %></span>
+    </li>
+  </ul>
+  <% if current_user.id.in?(@activity.participants.pluck(:user_id)) %>
+    <div class="grid grid-cols-2 gap-4 items-center">
+      <div class="<%= "col-span-2" if current_user.eql?(@activity.owner) %>">
+        <%= link_to "https://maps.apple.com/?daddr=#{@activity.address},#{@activity.postal_code},#{@activity.city_name}&dirflg=d&t=h", class:"y-btn-icon y-btn-yaspeez-blue" do %>
+          <%= inline_svg_tag "svg/map.svg", class: "w-5" %>
+          <span>M'y rendre</span>
+        <% end %>
+      </div>
+      <div class="<%= "hidden" if current_user.eql?(@activity.owner) %>">
+        <%= link_to activity_participant_path(@activity, current_user), data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir vous désinscrire de cette activité ?" }, class:"y-btn-icon y-btn-yaspeez-blue" do %>
+          <%= inline_svg_tag "svg/user-minus.svg", class: "w-5" %>
+          <span>Me désinscrire</span>
+        <% end %>
+      </div>
+    </div>
+  <% else %>
+    <div>
+      <%= form_with(model: [@activity, @activity.participants.new], class: "contents") do |form| %>
+        <%= form.button class: "y-btn-icon y-btn-yaspeez-blue" do %>
+          <%= inline_svg_tag "svg/user-plus.svg", class: "w-5" %>
+          <span>M'inscrire</span>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="-mx-5 p-5 bg-white text-sm">
+    <p class="italic"><span class="font-bold">Description&nbsp;:</span> <%= @activity.description %></p>
+  </div>
+  <div class="space-y-3 text-sm">
+    <span class="italic font-bold">Commentaires</span>
+    <% if @comments.count.eql?(0) %>
+      <div>
+        <p class="text-center italic font-light">Il n'y a pas encore de commentaire</p>
+      </div>
+      <% else %>
+      <div class="divide-y">
+        <% @comments.each do |comment| %>
+          <div class="flex justify-between items-center py-2">
+            <div class="flex space-x-2">
+              <div class="bg-cover bg-center rounded-full w-9 h-9 shrink-0" style="background-image: url(<%= url_for(comment.author.avatar.present? ? comment.author.avatar : "" ) %>);"></div>
+              <div>
+                <p><span class="font-bold"><%= comment.author.nickname %></span> <span class="font-light text-xs italic">(il y a <%= time_ago_in_words(comment.created_at) %>)</span>&nbsp;:</p>
+                <%= comment.body %>
+              </div>
+            </div>
+            <% if current_user.admin? %>
+              <%= link_to admin_comment_path(comment), data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir supprimer ce commentaire ?" } do %>
+                <%= inline_svg_tag "svg/trash.svg", class: "w-5 text-red-500" %>
+              <% end %>
+            <% else %>
+              <%= link_to activity_comment_reports_path(@activity, comment), data: { turbo_method: :post, turbo_confirm: "Êtes-vous sûr de vouloir signaler ce commentaire ?" } do %>
+                <%= inline_svg_tag "svg/flag.svg", class: "w-5 text-red-500" %>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+    <%= form_with(model: [@activity, @new_comment], class:"grid grid-cols-5 gap-2") do |form| %>
+      <%= form.text_area :body, placeholder: "Ajoutez votre commentaire ici...", required: true, class: "y-form-border col-span-4" %>
+      <%= form.button class: "y-btn-icon y-btn-yaspeez-blue" do %>
+        <%= inline_svg_tag "svg/send.svg", class: "w-5" %>
+      <% end %>
+    <% end %>
+  </div>
+  <% if current_user.eql?(@activity.owner) %>
+    <div class="grid grid-cols-2 gap-4 items-center">
+      <%= link_to edit_activity_path(@activity), class: "y-btn-icon y-btn-white" do %>
+        <%= inline_svg_tag "svg/edit.svg", class: "w-5" %>
+        <span>Modifier</span>
+      <% end %>
+      <%= button_to activity_path(@activity), method: :delete, data: { turbo_confirm: "Êtes-vous sûr de vouloir supprimer cette activité ?" }, class: "y-btn-icon y-btn-white" do %>
+        <%= inline_svg_tag "svg/trash.svg", class: "w-5" %>
+        <span>Supprimer</span>
+      <% end %>
+    </div>
+  <% end %>
 </div>
+

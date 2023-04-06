@@ -1,0 +1,52 @@
+<% content_for :header_logo, "logo.png" %>
+
+<% content_for :header_right_nav do %>
+  <%= link_to "#", class: "flex flex-col items-center" do %>
+    <%= inline_svg_tag "svg/share.svg", class: "w-6" %>
+    <p class="text-xs">Suivre</p>
+  <% end %>
+<% end %>
+
+<% content_for :header_main do %>
+  <div class="space-y-3">
+    <div class="flex justify-between">
+      <div class="flex items-center space-x-2">
+        <%= inline_svg_tag "svg/star.svg", class: "w-4" %>
+        <span>rate</span>
+      </div>
+      <div class="flex items-center space-x-2">
+        <%= inline_svg_tag "svg/map-pin.svg", class: "w-4" %>
+        <span>distance</span>
+      </div>
+    </div>
+    <div class="flex flex-col items-center space-y-2">
+      <p class="text-xl font-bold uppercase">SDLC Center</p>
+      <p class="text-xs text-center uppercase">address_line_one&nbsp;|&nbsp;address_postal_code address_city</p>
+      <%= link_to  "Adhérer", "#", class: "mx-auto flex justify-center border border-white font-semibold w-3/4" %>
+    </div>
+    <div class="grid grid-cols-4">
+      <ul class="col-span-3 list-none text-sm space-y-2">
+        <li class="flex items-center space-x-2">
+          <%= inline_svg_tag "svg/at.svg", class: "w-4" %>
+          <%= link_to "email@email.fr", "mailto:email@email.fr" %>
+        </li>
+        <li class="flex items-center space-x-2">
+          <%= inline_svg_tag "svg/mobile.svg", class: "w-4" %>
+          <span>phone_number</span>
+        </li>
+        <li class="flex items-center space-x-2">
+          <%= inline_svg_tag "svg/banknotes.svg", class: "w-4" %>
+          <span>prices</span>
+        </li>
+      </ul>
+      <div class="place-self-center">
+        <%= link_to "#" do %> 
+          <%= inline_svg_tag "svg/map.svg", class: "w-8" %>
+        <% end %>
+      </div>
+    </div>
+    <div class="text-sm">
+      <p>Description du club</p>
+    </div>
+  </div>
+<% end %>

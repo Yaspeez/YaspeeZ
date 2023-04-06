@@ -3,16 +3,36 @@ class ActivitiesController < ApplicationController
 
   # GET /activities or /activities.json
   def index
-    @activities = Activity.all
+    if params[:distance].present?
+      @distance = params[:distance].to_i
+      @distance = [Activity::MINIMUM_DISTANCE_IN_KM, @distance].max
+      @distance = [@distance, Activity::MAXIMUM_DISTANCE_IN_KM].min
+    else
+      @distance = 10
+    end
+
+    if params[:sport_id].present?
+      @sport = Sport.find(params[:sport_id])
+      @pagy, @activities = pagy(Activity.future.near([current_user.latitude, current_user.longitude], @distance, units: :km).order(starts_at: :asc).where(sport_id: @sport))
+    else
+      @pagy, @activities = pagy(Activity.future.near([current_user.latitude, current_user.longitude], @distance, units: :km).order(starts_at: :asc))
+    end
   end
 
   # GET /activities/1 or /activities/1.json
   def show
+    @participants = @activity.participants
+    @comments = @activity.comments
+    @new_comment = Comment.new(activity: @activity)
   end
 
   # GET /activities/new
   def new
     @activity = Activity.new
+
+    if params[:sport_id].present?
+      @activity.sport = Sport.find(params[:sport_id])
+    end
   end
 
   # GET /activities/1/edit
@@ -21,11 +41,13 @@ class ActivitiesController < ApplicationController
 
   # POST /activities or /activities.json
   def create
-    @activity = Activity.new(activity_params)
+    @activity = current_user.organized_activities.new(activity_params)
+    @activity.calculate_coordinates
+    @activity.participants.new(user: current_user)
 
     respond_to do |format|
       if @activity.save
-        format.html { redirect_to activity_url(@activity), notice: "Activity was successfully created." }
+        format.html { redirect_to activity_url(@activity), notice: "L'activité a été créée avec succès !" }
         format.json { render :show, status: :created, location: @activity }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -36,9 +58,12 @@ class ActivitiesController < ApplicationController
 
   # PATCH/PUT /activities/1 or /activities/1.json
   def update
+    @activity.assign_attributes(activity_params)
+    @activity.calculate_coordinates
+
     respond_to do |format|
-      if @activity.update(activity_params)
-        format.html { redirect_to activity_url(@activity), notice: "Activity was successfully updated." }
+      if @activity.save
+        format.html { redirect_to activity_url(@activity), notice: "L'activité a été mise à jour avec succès !" }
         format.json { render :show, status: :ok, location: @activity }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,19 +77,32 @@ class ActivitiesController < ApplicationController
     @activity.destroy
 
     respond_to do |format|
-      format.html { redirect_to activities_url, notice: "Activity was successfully destroyed." }
+      format.html { redirect_to activities_url, notice: "L'activité a été supprimée avec succès." }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_activity
-      @activity = Activity.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_activity
+    @activity = Activity.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def activity_params
-      params.require(:activity).permit(:duration_in_minutes, :gender, :level, :maximum_participants_number, :participants_count, :per_participant_price_cents, :starts_at, :sport_id)
-    end
+  # Only allow a list of trusted parameters through.
+  def activity_params
+    params.require(:activity).permit(
+      :address,
+      :city_id,
+      :city_name,
+      :description,
+      :duration_in_minutes,
+      :gender,
+      :level,
+      :maximum_participants_number,
+      :participants_count,
+      :per_participant_price,
+      :starts_at,
+      :sport_id,
+    )
+  end
 end

@@ -1,0 +1,7 @@
+.ss-main {
+  @apply bg-transparent rounded-lg border-none w-fit focus:border-0 focus:ring-0 w-3/4;
+}
+
+.ss-search {
+  @apply focus:border-red-500 focus:ring-0;
+}

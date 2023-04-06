@@ -1,0 +1,30 @@
+<% content_for :header_title, @activity.sport.name %>
+<% content_for :header_back_link, activities_path %>
+<% content_for :header_main do %>
+  <div class="flex flex-col items-center justify-center">
+    <p class="italic font-light"><%= @activity.level %></p>
+    <p>Liste des participants</p>
+  </div>
+<% end %>
+
+<% @participants.each do |participant| %>
+  <%= link_to athlete_path(participant.user), class: "text-base leading-6 text-gray-900" do %>
+    <div class="border-b border-gray-200 bg-white px-4 py-4 sm:px-6">
+      <div class="-ml-4 -mt-4 flex flex-wrap items-center justify-between sm:flex-nowrap">
+        <div class="ml-4 mt-4">
+          <div class="flex items-center">
+            <div class="bg-cover bg-center rounded-full w-10 h-10  shrink-0" style="background-image: url(<%= url_for(participant.user.avatar.present? ? participant.user.avatar : "" ) %>);">
+            </div>
+            <div class="ml-4">
+              <h3 class="text-base font-semibold leading-6 text-gray-900"> <%= participant.user.nickname %> </h3>
+              <p class="text-sm text-gray-500">
+                <%= participant.user.age %> ans | Abonné le <%= l(participant.user.created_at, format: "%d/%m/%Y") %>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
