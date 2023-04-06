@@ -7,6 +7,9 @@ module.exports = {
     './app/javascript/**/*.js',
     './app/views/**/*.{erb,haml,html,slim}'
   ],
+
+  darkMode: 'class',
+
   theme: {
     extend: {
       colors: {
@@ -20,15 +23,28 @@ module.exports = {
         "doger-blue": "#0097ff",
         "pampas": "f3f0ec",
         "silver-green": "#5ca284",
+        "malachite": "#2ece2c",
+        "crimson": "#df2533",
       },
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
       },
+    },
+    letterSpacing: {
+      tightest: '-.075em',
+      tighter: '-.05em',
+      tight: '-.025em',
+      normal: '0',
+      wide: '.025em',
+      wider: '.05em',
+      widest: '.1em',
+      widest: '.25em',
     },
   },
   plugins: [
     require('@tailwindcss/forms'),
     require('@tailwindcss/aspect-ratio'),
     require('@tailwindcss/typography'),
+    require('@tailwindcss/forms'),
   ]
 }

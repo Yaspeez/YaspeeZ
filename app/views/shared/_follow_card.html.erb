@@ -1,0 +1,8 @@
+<div class="bg-gray-200 rounded-lg flex snap-x snap-mandatory overflow-x-auto text-black">
+  <% 15.times do%>
+    <div class="py-4 px-3 snap-start shrink-0">
+      <div class="bg-cover bg-center rounded-full w-9 h-9 shrink-0" style="background-image: url(<%= url_for(current_user.avatar) %>);">
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,53 @@
+<% content_for :header_logo, "logo.png" %>
+
+<% content_for :header_left_nav do %>
+  <div data-controller="toggle">
+    <button id="dropdownDefaultButton" data-action="toggle-nav-bar@window->toggle#toggle toggle#toggle" type="button">
+      <%= inline_svg_tag "svg/menu.svg", class: "w-6" %>
+    </button>
+    <%= render "shared/menu" %>
+  </div>
+<% end %>
+
+<% content_for :header_right_nav do %>
+  <%= link_to destroy_user_session_path, data: { turbo_method: :delete } do %>
+    <%= inline_svg_tag "svg/logout.svg", class: "w-6" %>
+  <% end %>
+<% end %>
+
+<% content_for :header_main do %>
+  <div class="space-y-4 flex flex-col items-center">
+    <p class="y-subheader-title">Là où Y'a du sport, YaspeeZ</p>
+    <%= link_to activities_path, class: "y-btn y-btn-white" do %>
+      <%= inline_svg_tag "svg/search.svg", class: "w-6 pr-2" %>
+      Rechercher une activité
+    <% end %>
+  </div>
+<% end %>
+
+<div class="y-card-main">
+  <div class="flex gap-6 snap-x snap-mandatory overflow-x-auto text-black">
+    <% @activities.each do |activity| %>
+      <div class="snap-start shrink-0">
+        <%= render "activities/event_card", activity: activity %>
+      </div>
+    <% end %>
+    <div class="snap-start shrink-0">
+      <div class="py-2 px-4 <%= @activities.any? ? "h-full" : "h-40" %> w-64 flex items-center justify-center my-auto bg-white border-2 border-dashed border-gray-400 shadow-md rounded-md overflow-hidden">
+        <%= link_to new_activity_path, class: "flex justify-center items-center" do %>
+          <%= inline_svg_tag "svg/plus.svg", class: "w-6 pr-2" %>
+          <span>J'organise une activité</span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <% unless turbo_native_app? %>
+    <div class="my-5 space-y-2">
+      <%= link_to athlete_path(current_user), class: "y-btn y-btn-lockmara" do %>
+        Voir mon profil
+      <% end %>
+    </div>
+  <% end %>
+</div>
+

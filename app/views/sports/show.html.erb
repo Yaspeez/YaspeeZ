@@ -1,3 +1,6 @@
+<% content_for :header_title, @sport.name %>
+<% content_for :header_background, "logo.png" %>
+
 <div class="mx-auto md:w-2/3 w-full flex">
   <div class="mx-auto">
     <% if notice.present? %>
@@ -5,6 +8,16 @@
     <% end %>
 
     <%= render @sport %>
+
+    <% if @future_activities.any? %>
+      <h2>Futures activités pour moi</h2>
+
+      <% @future_activities.each do |activity| %>
+        <%= render activity %>
+      <% end %>
+    <% end %>
+
+    <%= link_to "Organiser", new_sport_activity_path(@sport), class: "y-btn y-btn-green bg-blue-500" %>
 
     <%= link_to 'Edit this sport', edit_sport_path(@sport), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <div class="inline-block ml-2">

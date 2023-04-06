@@ -1,0 +1,29 @@
+<% content_for :header_logo, "logo.png" %>
+<% content_for :header_title, "Commentaires signalés" %>
+<% content_for :header_main do %>
+  <div class="flex flex-col items-center justify-center">
+    <p class="italic font-light"></p>
+  </div>
+<% end %>
+
+<div class="y-card-main divide-y text-sm">
+  <% @reported_comments.each do |comment| %>
+    <div class="flex justify-between items-center py-2">
+      <div class="flex space-x-2">
+        <div class="bg-cover bg-center rounded-full w-9 h-9 shrink-0" style="background-image: url(<%= url_for(comment.author.avatar.present? ? comment.author.avatar : "" ) %>);"></div>
+        <div>
+          <p><span class="font-bold"><%= comment.author.nickname %></span> <span class="font-light text-xs italic">(il y a <%= time_ago_in_words(comment.created_at) %>)</span>&nbsp;:</p>
+          <%= comment.body %>
+        </div>
+      </div>
+      <div class="flex space-x-1">
+        <%= link_to activity_path(comment.activity) do %>
+          <%= inline_svg_tag "svg/eye.svg", class: "w-5" %>
+        <% end %>
+        <%= link_to admin_comment_path(comment), data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir supprimer ce commentaire ?" } do %>
+          <%= inline_svg_tag "svg/trash.svg", class: "w-5 text-red-500" %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -1,16 +1,52 @@
 <h2><%= t('.resend_confirmation_instructions') %></h2>
 
-<%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit t('.resend_confirmation_instructions') %>
-  </div>
-<% end %>
 
 <%= render "devise/shared/links" %>
+
+<div class="h-screen overflow-y-auto">
+  <div class="rounded-b-2xl bg-yaspeez shadow-inner-lg text-white p-4">
+    <%= image_tag "logo.png", class: "h-20 mx-auto my-10" %>
+
+    <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+      <div class="field">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), class: "y-form" %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit t('.resend_confirmation_instructions') %>
+      </div>
+    <% end %>
+
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |form| %>
+      <div class="flex flex-col items-center space-y-3">
+        <%= link_to "Connexion avec Facebook", "#", class: "y-btn-u y-btn-lockmara" %>
+        <%= link_to "Connexion avec Google", "#", class: "y-btn-u y-btn-white" %>
+        <%= link_to "Connexion avec Apple", "#", class: "y-btn-u y-btn-black" %>
+
+        <span class="py-2 text-white">Ou</span>
+
+        <%= form.email_field :email, autocomplete: "email", placeholder: "E-mail", class: "y-form" %>
+        <%= form.password_field :password, autocomplete: "current-password", placeholder: "Mot de passe", class: "y-form" %>
+        <%= link_to t(".forgot_your_password"), new_password_path(resource_name), class:"text-sm italic underline" %>
+
+        <% if devise_mapping.rememberable? %>
+          <div class="py-2 flex items-center space-x-0.5 text-sm">
+            <%= form.check_box :remember_me %>
+            <%= form.label :remember_me %>
+          </div>
+        <% end %>
+
+        <%= form.submit t('.sign_in'), class: "y-btn-u y-btn-gray" %>
+      </div>
+
+      <div class="flex justify-center space-x-2 mt-10">
+        <span>Pas encore de compte&nbsp;?</span>
+        <%= link_to t(".sign_up"), new_registration_path(resource_name), class:"underline" %>
+      </div>
+    <% end %>
+  </div>
+</div>

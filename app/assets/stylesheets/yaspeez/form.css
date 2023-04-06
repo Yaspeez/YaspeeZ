@@ -1,0 +1,7 @@
+.y-form {
+  @apply bg-white text-black rounded-md border-none shadow-md
+}
+
+.y-form-border {
+  @apply bg-white text-black rounded-md border-gray-300 shadow-md
+}

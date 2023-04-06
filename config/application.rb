@@ -18,5 +18,8 @@ module Yaspeez
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    config.default_locale = :fr
+    config.available_locales = [:fr, :en]
   end
 end

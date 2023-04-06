@@ -1,0 +1,31 @@
+.y-btn-u {
+  @apply w-fit py-2 px-8 rounded-2xl uppercase text-sm cursor-pointer
+}
+
+.y-btn {
+  @apply w-fit flex items-center py-2 px-8 rounded-2xl text-sm cursor-pointer
+}
+
+.y-btn-icon {
+  @apply w-full flex justify-center py-5 rounded-lg text-sm space-x-2 cursor-pointer
+}
+
+.y-btn-black {
+  @apply text-white bg-black hover:bg-gray-700
+}
+
+.y-btn-gray {
+  @apply text-white bg-gray-500
+}
+
+.y-btn-lockmara {
+  @apply text-white bg-lockmara
+}
+
+.y-btn-white {
+  @apply text-black bg-white hover:bg-gray-100
+}
+
+.y-btn-yaspeez-blue {
+  @apply text-white bg-yaspeez-blue
+}

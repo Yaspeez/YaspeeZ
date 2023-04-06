@@ -1,3 +1,7 @@
 .y-card-top {
     @apply rounded-b rounded-lg bg-red-500
 }
+
+.y-card-main {
+    @apply p-5 flex flex-col bg-gradient-to-t from-gray-400 to-white rounded-b-2xl 
+}

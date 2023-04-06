@@ -90,4 +90,8 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # YaspeeZ configuration
+  config.action_mailer.default_url_options = { host: "yaspeez.dilodemo.fr" }
+  config.action_mailer.delivery_method = :mailjet
 end

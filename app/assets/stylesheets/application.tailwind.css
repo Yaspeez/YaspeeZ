@@ -1,8 +1,15 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
+@import "yaspeez/aside";
+@import "yaspeez/button";
 @import "yaspeez/card";
+@import "yaspeez/form";
+@import "yaspeez/header";
+
+@import "vendor/slim";
+@import "yaspeez/slim";
 
 /*
    Add the following markup AFTER your import statements
@@ -35,4 +42,12 @@
 
 .page.active {
   @apply z-10 border-indigo-500 bg-indigo-50 text-indigo-600 relative inline-flex items-center border px-4 py-2 text-sm font-medium focus:z-20
+}
+
+.list-group {
+  @apply absolute z-50 mt-1 rounded bg-white space-y-1.5 p-2 border w-full;
+}
+
+.list-group-item {
+  @apply cursor-pointer
 }
