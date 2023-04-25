@@ -10,7 +10,7 @@ class OnboardingsController < ApplicationController
   def create
     @user = current_user
     @user.assign_attributes(onboarding_params)
-
+    
     results = Geocoder.search([@user.postal_code, @user.city].join(" "))
 
     if results.any?
@@ -21,6 +21,8 @@ class OnboardingsController < ApplicationController
     end
 
     @user.onboarded = true
+    @user.postal_code = City.find(params[:user][:city_id]).code_postal
+    
 
     if @user.save(context: :update)
       redirect_to root_path
@@ -34,7 +36,8 @@ class OnboardingsController < ApplicationController
   def onboarding_params
     params.require(:user).permit(
       :age,
-      :city,
+      :city_name,
+      :city_id,
       :avatar,
       :nickname,
       :postal_code,
