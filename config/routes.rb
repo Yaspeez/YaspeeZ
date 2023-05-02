@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+
   devise_for :users
 
   namespace :api, defaults: { format: :json } do
@@ -29,16 +31,14 @@ Rails.application.routes.draw do
     end
     resource :dashboard, only: [:show]
     resource :profile, only: [:show, :edit, :update]
-    resources :sports do
-      resources :activities, only: [:new, :create], module: :sports
-    end
+    resources :sports
 
     root to: "dashboards#show", as: :user_root
   end
 
   unauthenticated :user do
-    get "/activities", to: "pages#home"
-    get "/profile", to: "pages#home"
+    get "/activities", to: "pages#activities"
+    get "/profile", to: "pages#profile"
   end
 
   get "/privacy", to: "pages#privacy"

@@ -6,6 +6,7 @@ module Cities
 
     def show
       @cities = City.search(params[:q]).first(10)
+      authorize [:city, :autocomplete, :show?]
       render layout: false
     end
   end

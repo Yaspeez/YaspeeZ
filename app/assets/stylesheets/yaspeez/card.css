@@ -5,3 +5,7 @@
 .y-card-main {
     @apply p-5 flex flex-col bg-gradient-to-t from-gray-400 to-white rounded-b-2xl 
 }
+
+.y-card_pro {
+    @apply p-4 flex flex-col bg-pampas rounded-b-2xl
+}

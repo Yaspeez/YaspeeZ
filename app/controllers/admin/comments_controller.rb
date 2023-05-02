@@ -4,6 +4,7 @@ module Admin
 
     def index
       @reported_comments = Comment.reported
+      authorize [:admin, @reported_comments]
     end
 
     def destroy
@@ -18,6 +19,7 @@ module Admin
 
     def set_comment
       @comment = Comment.find(params[:id])
+      authorize [:admin, @comment]
     end
   end
 end

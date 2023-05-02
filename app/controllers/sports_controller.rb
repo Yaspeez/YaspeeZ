@@ -8,6 +8,8 @@ class SportsController < ApplicationController
     else
       @pagy, @sports = pagy(Sport.all)
     end
+
+    authorize @sports
   end
 
   # GET /sports/1 or /sports/1.json
@@ -18,6 +20,7 @@ class SportsController < ApplicationController
   # GET /sports/new
   def new
     @sport = Sport.new
+    authorize @sport
   end
 
   # GET /sports/1/edit
@@ -27,6 +30,7 @@ class SportsController < ApplicationController
   # POST /sports or /sports.json
   def create
     @sport = Sport.new(sport_params)
+    authorize @sport
 
     respond_to do |format|
       if @sport.save
@@ -66,6 +70,7 @@ class SportsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_sport
       @sport = Sport.find(params[:id])
+      authorize @sport
     end
 
     # Only allow a list of trusted parameters through.

@@ -3,6 +3,7 @@
 class Api::V1::UsersController < ApplicationController
   skip_before_action :authenticate_user!
   skip_before_action :verify_authenticity_token
+  skip_after_action :verify_authorized
 
   def create
     @user = User.new(devise_parameter_sanitizer.sanitize(:sign_up))

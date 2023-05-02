@@ -17,6 +17,8 @@ class ActivitiesController < ApplicationController
     else
       @pagy, @activities = pagy(Activity.future.near([current_user.latitude, current_user.longitude], @distance, units: :km).order(starts_at: :asc))
     end
+
+    authorize @activities
   end
 
   # GET /activities/1 or /activities/1.json
@@ -29,6 +31,7 @@ class ActivitiesController < ApplicationController
   # GET /activities/new
   def new
     @activity = Activity.new
+    authorize @activity
 
     if params[:sport_id].present?
       @activity.sport = Sport.find(params[:sport_id])
@@ -42,6 +45,8 @@ class ActivitiesController < ApplicationController
   # POST /activities or /activities.json
   def create
     @activity = current_user.organized_activities.new(activity_params)
+    authorize @activity
+
     @activity.calculate_coordinates
     @activity.participants.new(user: current_user)
 
@@ -86,6 +91,7 @@ class ActivitiesController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_activity
     @activity = Activity.find(params[:id])
+    authorize @activity
   end
 
   # Only allow a list of trusted parameters through.

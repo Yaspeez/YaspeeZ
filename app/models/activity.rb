@@ -42,6 +42,7 @@ class Activity < ApplicationRecord
   belongs_to :sport
   has_many :comments, dependent: :destroy
   has_many :participants, dependent: :destroy
+  has_many :users, through: :participants
 
   geocoded_by :full_address
   reverse_geocoded_by :latitude, :longitude

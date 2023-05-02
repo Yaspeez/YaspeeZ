@@ -13,6 +13,10 @@
     color:white;
 }
 
+.y-header-pro {
+    @apply text-lg font-light italic
+}
+
 .y-header-title {
     @apply uppercase text-center text-xl font-semibold
 }

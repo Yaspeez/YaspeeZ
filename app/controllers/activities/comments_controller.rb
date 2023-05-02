@@ -7,6 +7,8 @@ module Activities
     # POST /comments or /comments.json
     def create
       @comment = @activity.comments.new(comment_params)
+      authorize [:activity, @comment]
+
       @comment.author = current_user
 
       respond_to do |format|
@@ -47,6 +49,7 @@ module Activities
     # Use callbacks to share common setup or constraints between actions.
     def set_comment
       @comment = Comment.find(params[:id])
+      authorize [:activity, @comment]
     end
 
     # Only allow a list of trusted parameters through.

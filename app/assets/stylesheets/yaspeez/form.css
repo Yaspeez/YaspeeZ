@@ -5,3 +5,7 @@
 .y-form-border {
   @apply bg-white text-black rounded-md border-gray-300 shadow-md
 }
+
+.y-form-pro {
+  @apply bg-red-100 dark:bg-lockrama text-black dark:text-white rounded-md border-none shadow-md
+}

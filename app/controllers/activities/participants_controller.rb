@@ -2,15 +2,16 @@
 
 module Activities
   class ParticipantsController < ApplicationController
-
     def index
       @participants = @activity.participants
+      authorize [:activity, @participants]
     end
 
     def create
       @participation = @activity.participants.new(
         user: current_user,
       )
+      authorize [:activity, @participation]
 
       if @participation.save
         redirect_to @activity, notice: "Vous êtes inscrit avec succès à cette activité !"
@@ -21,6 +22,7 @@ module Activities
 
     def destroy
       @participation = @activity.participants.find_by(user: current_user)
+      authorize [:activity, @participation]
 
       if @participation.destroy
         redirect_to @activity, notice: "Vous vous êtes désinscrit avec succès de cette activité."
