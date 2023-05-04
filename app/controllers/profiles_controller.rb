@@ -2,15 +2,18 @@
 
 class ProfilesController < ApplicationController
   def show
+    authorize current_user, policy_class: ProfilePolicy
     redirect_to athlete_path(current_user)
   end
 
   def edit
     @user = current_user
+    authorize @user, policy_class: ProfilePolicy
   end
 
   def update
     @user = current_user
+    authorize @user, policy_class: ProfilePolicy
     @user.assign_attributes(user_params)
 
     if @user.city.present?

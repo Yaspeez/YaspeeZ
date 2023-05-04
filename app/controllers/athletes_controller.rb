@@ -3,7 +3,7 @@
 class AthletesController < ApplicationController
   def show
     @athlete = User.includes(:participations).find(params[:id])
-    authorize @athlete
+    authorize @athlete, policy_class: AthletePolicy
 
     @next_organized_activities = @athlete.organized_activities.future
   end
