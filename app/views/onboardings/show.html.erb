@@ -6,7 +6,7 @@
 <% end %>
 <% content_for :header_background, "logo.png" %>
 
-<%= form_with(model: @user, url: onboarding_path, method: :post, data: { turbo: false }, class: "h-[calc(100%-6.5rem)] overflow-y-auto") do |form| %>
+<%= form_with(model: @user, url: onboarding_path, method: :post, class: "h-[calc(100%-6.5rem)] overflow-y-auto") do |form| %>
   <div class="y-card-main">
     <div class="flex flex-col">
       <%= form.label :nickname, "Pseudo *" %>
