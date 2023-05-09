@@ -72,6 +72,7 @@ group :development do
   gem "bundler-audit", github: "rubysec/bundler-audit"
   gem "better_html", require: false
   gem "erb_lint", require: false
+  gem "rails-erd"
   gem "letter_opener"
   gem "letter_opener_web"
   gem "rubocop", require: false
