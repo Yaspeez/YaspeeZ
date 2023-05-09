@@ -1,6 +1,6 @@
 class Activity::ParticipantPolicy < ApplicationPolicy
   def index?
-    user.admin? || record.activity.users.include?(user)
+    user.admin? || record.pluck(:user_id).include?(user.id)
   end
 
   def create?
