@@ -16,7 +16,11 @@ class ApplicationController < ActionController::Base
   end
 
   def user_not_authorized
-    flash[:alert] = 'Vous n\'êtes pas autorisé à effectuer cette action.'
+    if current_user && !current_user.confirmed?
+      flash[:alert] = 'Veuillez valider votre compte par mail avant de continuer.'
+    else
+      flash[:alert] = 'Vous n\'êtes pas autorisé à effectuer cette action.'
+    end
     redirect_back(fallback_location: root_path)
   end
 end

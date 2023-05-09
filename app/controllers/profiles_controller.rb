@@ -38,6 +38,15 @@ class ProfilesController < ApplicationController
     end
   end
 
+  def destroy
+    @user = current_user
+    authorize @user, policy_class: ProfilePolicy
+
+    @user.destroy
+
+    redirect_to root_path, notice: "Votre compte a été supprimé avec succès."
+  end
+
   private
 
   def user_params

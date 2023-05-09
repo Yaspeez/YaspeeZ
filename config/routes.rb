@@ -30,7 +30,7 @@ Rails.application.routes.draw do
       resource :autocomplete, only: [:show]
     end
     resource :dashboard, only: [:show]
-    resource :profile, only: [:show, :edit, :update]
+    resource :profile, only: [:show, :edit, :update, :destroy]
     resources :sports
 
     root to: "dashboards#show", as: :user_root

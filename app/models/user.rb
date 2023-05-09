@@ -55,9 +55,9 @@ class User < ApplicationRecord
   belongs_to :city, optional: true
   belongs_to :sport, optional: true
   has_one_attached :avatar
-  has_many :api_tokens
-  has_many :organized_activities, class_name: "Activity", foreign_key: :owner_id
-  has_many :participations, class_name: "Participant"
+  has_many :api_tokens, dependent: :destroy
+  has_many :organized_activities, class_name: "Activity", foreign_key: :owner_id, dependent: :destroy
+  has_many :participations, class_name: "Participant", dependent: :destroy
   has_many :activities, through: :participations
 
   validates :age, presence: true, on: :update

@@ -30,6 +30,10 @@
   @apply text-black bg-white hover:bg-gray-100
 }
 
+.y-btn-red {
+  @apply text-white bg-red-500 hover:bg-red-600
+}
+
 .y-btn-yaspeez-blue {
   @apply text-white bg-yaspeez-blue
 }

@@ -10,4 +10,8 @@ class ProfilePolicy < ApplicationPolicy
   def edit?
     update?
   end
+
+  def destroy?
+    user.eql?(record)
+  end
 end
