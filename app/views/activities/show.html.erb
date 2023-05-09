@@ -135,7 +135,7 @@
         <%= inline_svg_tag "svg/edit.svg", class: "w-5" %>
         <span>Modifier</span>
       <% end %>
-      <%= button_to activity_path(@activity), method: :delete, data: { turbo_confirm: "Êtes-vous sûr de vouloir supprimer cette activité ?" }, class: "y-btn-icon y-btn-white" do %>
+      <%= button_to activity_path(@activity), method: :delete, data: { turbo_confirm: "Êtes-vous sûr de vouloir supprimer cette activité ?" }, class: "y-btn-icon y-btn-red" do %>
         <%= inline_svg_tag "svg/trash.svg", class: "w-5" %>
         <span>Supprimer</span>
       <% end %>
