@@ -61,7 +61,6 @@ class User < ApplicationRecord
   has_many :activities, through: :participations
 
   validates :age, presence: true, on: :update
-  validates :avatar, resizable_image: true
   validates :city_name, presence: true, on: :update
   validates :nickname, presence: true, uniqueness: true, on: :update
   validates :postal_code, presence: true, on: :update
