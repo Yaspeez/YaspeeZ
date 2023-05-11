@@ -27,7 +27,7 @@
     <div class="flex flex-col">
       <%= form.label :avatar, "Photo de profil" %>
       <div class="y-form p-2 truncate">
-        <%= form.file_field :avatar %>
+        <%= form.file_field :avatar, accept: "image/*" %>
       </div>
     </div>
     <div class="flex flex-col">
