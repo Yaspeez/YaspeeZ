@@ -1,24 +1,19 @@
-# README
+# YaspeeZ
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Getting started
 
-Things you may want to cover:
+### Requirements
 
-* Ruby version
+- Ruby 3.2.2 or higher
+- bundler - `gem install bundler`
+- PostgreSQL
 
-* System dependencies
+### Initial setup
 
-* Configuration
+1. Customize the `config/database.yml`
+1. Run `bin/setup`
 
-* Database creation
+### Running YaspeeZ
 
-* Database initialization
+1. Run `bin/dev`
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...

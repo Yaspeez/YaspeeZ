@@ -3,6 +3,7 @@
 namespace :cities do
   desc "Import cities"
   task import: :environment do
+    puts "Importing cities..."
     require "csv"
     cities_file_path = Rails.root.join("data", "codes-postaux.csv")
     CSV.foreach(cities_file_path, headers: true, col_sep: ";") do |city|
@@ -17,6 +18,7 @@ namespace :cities do
       )
       print "."
     end
+    puts "Imported #{City.count} cities"
   end
 end
 
