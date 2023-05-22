@@ -26,6 +26,10 @@
   @apply text-white bg-lockmara
 }
 
+.y-btn-menu {
+  @apply text-white bg-gray-500 rounded-full py-3 px-6
+}
+
 .y-btn-white {
   @apply text-black bg-white hover:bg-gray-100
 }
