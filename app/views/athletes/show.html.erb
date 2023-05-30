@@ -12,8 +12,8 @@
   <% if current_user.eql?(@athlete) && turbo_native_app? %>
     <div class="-mt-6 flex justify-between">
       <%= link_to edit_profile_path, class: "flex justify-end" do %>
-          <%= inline_svg_tag "svg/edit.svg", class: "w-6" %>
-        <% end %>
+        <%= inline_svg_tag "svg/edit.svg", class: "w-6" %>
+      <% end %>
 
       <%= link_to destroy_user_session_path, data: { turbo_method: :delete } do %>
         <%= inline_svg_tag "svg/logout.svg", class: "w-6" %>
@@ -68,7 +68,7 @@
 
   <% if current_user.eql?(@athlete) %>
     <div class="flex justify-center">
-      <%= link_to "Supprimer mon compte", profile_path, data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir supprimer votre compte?" }, class: "y-btn y-btn-red" %>
+      <%= link_to "Supprimer mon compte", profile_path, data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir supprimer votre compte ?" }, class: "y-btn y-btn-red" %>
     </div>
   <% end %>
 

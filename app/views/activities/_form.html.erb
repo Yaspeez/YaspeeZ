@@ -21,6 +21,11 @@
     <%= form.select :level, Activity.levels_select_for, { prompt: "Sélectionnez un niveau" }, class: "y-form", required: true %>
   </div>
 
+  <div class="flex items-center space-x-2">
+    <%= check_box_tag :handicap %>
+    <%= label_tag :handicap, "Handisport" %>
+  </div>
+
   <div class="flex flex-col">
     <%= form.label :description, "Description", class: "y-label" %>
     <%= form.text_area :description, class: "y-form", placeholder: "Renseignez une description...", required: true %>
