@@ -16,7 +16,9 @@
     <%= render "shared/menu" %>
 
     <main class="z-0 w-full h-full" data-controller="header">
+    <% if user_signed_in? %>
       <%= render "shared/header" %>
+    <% end %>
       <%= yield %>
     </main>
   </body>
