@@ -1,9 +1,1 @@
-<div class="h-screen overflow-y-auto">
-  <div class="rounded-b-2xl bg-yaspeez shadow-inner-lg text-white p-4">
-    <%= image_tag "logo.png", class: "h-20 mx-auto my-10" %>
-    <div class="grid place-items-center gap-3">
-      <%= link_to "Créer un compte", new_user_registration_path, class: "y-btn-u y-btn-menu" %>
-      <%= link_to "Se connecter", new_user_session_path, class: "y-btn-u y-btn-menu" %>
-    </div>
-  </div>
-</div>
+<%= render "home" %>
