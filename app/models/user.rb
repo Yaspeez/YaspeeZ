@@ -65,11 +65,19 @@ class User < ApplicationRecord
   validates :nickname, presence: true, uniqueness: true, on: :update
   validates :postal_code, presence: true, on: :update
 
+  after_save :convert_heic_avatar_to_jpg
+
   geocoded_by :city_with_postal_code
   reverse_geocoded_by :latitude, :longitude
 
   def city_with_postal_code
     [postal_code, city].join(" ")
+  end
+
+  def convert_heic_avatar_to_jpg
+    if avatar.attached? && avatar.content_type.eql?("image/heic")
+      ConvertHeicAvatarToJpgJob.perform_later(self)
+    end
   end
 end
 

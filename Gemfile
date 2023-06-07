@@ -99,4 +99,5 @@ gem "pagy"
 gem "pg_search"
 gem "pundit"
 gem "rails-i18n"
+gem "sidekiq"
 

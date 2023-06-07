@@ -22,6 +22,7 @@ module Yaspeez
     config.default_locale = :fr
     config.available_locales = [:fr, :en]
 
+    config.active_job.queue_adapter = :sidekiq
     config.active_storage.variable_content_types = %w(image/png image/gif image/jpeg image/tiff image/bmp image/vnd.adobe.photoshop image/vnd.microsoft.icon image/webp image/avif image/heic image/heif)
   end
 end
