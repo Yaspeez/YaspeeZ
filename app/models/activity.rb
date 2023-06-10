@@ -9,6 +9,7 @@
 #  description                    :text
 #  duration_in_minutes            :float
 #  gender                         :string
+#  handisport                     :boolean          default(FALSE)
 #  latitude                       :float
 #  level                          :string
 #  longitude                      :float
@@ -49,6 +50,7 @@ class Activity < ApplicationRecord
 
   monetize :per_participant_price_cents
 
+  scope :handisports, -> { where(handisport: true) }
   scope :future, -> { where("starts_at > ?", DateTime.now) }
 
   validates :address, presence: true

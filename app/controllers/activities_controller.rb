@@ -10,13 +10,14 @@ class ActivitiesController < ApplicationController
     else
       @distance = 10
     end
+    @sport = Sport.find(params[:sport_id]) if params[:sport_id].present?
+    @handisport = params[:handisport].eql?("1")
 
-    if params[:sport_id].present?
-      @sport = Sport.find(params[:sport_id])
-      @pagy, @activities = pagy(Activity.future.near([current_user.latitude, current_user.longitude], @distance, units: :km).order(starts_at: :asc).where(sport_id: @sport))
-    else
-      @pagy, @activities = pagy(Activity.future.near([current_user.latitude, current_user.longitude], @distance, units: :km).order(starts_at: :asc))
-    end
+    activities = Activity.future.near([current_user.latitude, current_user.longitude], @distance, units: :km).order(starts_at: :asc)
+    activities = activities.where(sport: @sport) if @sport.present?
+    activities = activities.handisports if @handisport
+
+    @pagy, @activities = pagy(activities)
 
     authorize @activities
   end
@@ -103,6 +104,7 @@ class ActivitiesController < ApplicationController
       :description,
       :duration_in_minutes,
       :gender,
+      :handisport,
       :level,
       :maximum_participants_number,
       :participants_count,

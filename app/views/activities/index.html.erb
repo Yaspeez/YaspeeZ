@@ -22,6 +22,10 @@
         <%= inline_svg_tag "svg/search.svg", class: "w-6" %>
       <% end %>
     </div>
+    <div class="flex space-x-2 items-center">
+      <%= form.label :handisport, "Handisport", class: "y-label" %>
+      <%= form.check_box :handisport, checked: @handisport, class: "y-form" %>
+    </div>
   <% end %>
 
   <% if @activities.present? %>

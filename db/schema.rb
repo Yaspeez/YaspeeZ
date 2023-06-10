@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_28_154952) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_10_165002) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -74,6 +74,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_28_154952) do
     t.integer "per_participant_price_cents", default: 0, null: false
     t.string "per_participant_price_currency", default: "EUR", null: false
     t.uuid "city_id"
+    t.boolean "handisport", default: false
     t.index ["city_id"], name: "index_activities_on_city_id"
     t.index ["owner_id"], name: "index_activities_on_owner_id"
     t.index ["sport_id"], name: "index_activities_on_sport_id"

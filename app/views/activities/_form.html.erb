@@ -22,8 +22,8 @@
   </div>
 
   <div class="flex items-center space-x-2">
-    <%= check_box_tag :handicap %>
-    <%= label_tag :handicap, "Handisport" %>
+    <%= form.label :handisport, "Handisport", class: "y-label" %>
+    <%= form.check_box :handisport, class: "y-form" %>
   </div>
 
   <div class="flex flex-col">
