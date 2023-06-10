@@ -7,17 +7,16 @@ class ConvertHeicAvatarToJpgJob < ApplicationJob
     image = ::Vips::Image.new_from_buffer(user.avatar.download, "")
     blob = user.avatar.blob
 
-    Tempfile.open([blob.id, ".jpeg"]) do |file|
-      image.jpegsave(file.path)
+    file = Tempfile.open([blob.id, ".jpeg"])
+    image.jpegsave(file.path)
 
-      user.avatar.attach(
-        io: File.open(file.path),
-        filename: "#{blob.filename.base}.jpeg",
-        content_type: "image/jpeg",
-      )
+    user.avatar.attach(
+      io: File.open(file.path),
+      filename: "#{blob.filename.base}.jpeg",
+      content_type: "image/jpeg",
+    )
 
-      file.close
-      file.unlink
-    end
+    file.close
+    file.unlink
   end
 end
