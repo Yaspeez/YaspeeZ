@@ -2,7 +2,12 @@
   <div class="bg-cover bg-center rounded-xl w-full h-64 shadow-xl" style="background-image: url(<%= url_for(activity.owner.avatar.present? ? activity.owner.avatar : "" ) %>);">
     <div class="text-white h-full w-full flex flex-col justify-end rounded-lg bg-gradient-to-t from-gray-500/[0.75] to-gray-500/[0.15]" >
       <div class="p-4">
-        <h2 class="uppercase font-semibold text-xl mb-2"><%= activity.owner.nickname %></h2>
+        <div class="flex items-center space-x-2">
+          <h2 class="uppercase font-semibold text-xl">
+            <%= activity.owner.nickname %>
+          </h2>
+          <%= image_tag "icones/Handisport.png", alt: "Icône Handisport", class: "w-12" if activity.handisport? %>
+        </div>
         <div class="flex items-center space-x-2">
           <%= inline_svg_tag "svg/trophy.svg", class: "w-4 shrink-0 text-yellow-500" %>
           <span class="text-sm truncate"><%= activity.sport.name %></span>

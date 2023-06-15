@@ -31,7 +31,7 @@
   <% if @activities.present? %>
     <ul class="list-none grid grid-cols-2 gap-4 -mx-5 p-5 bg-gradient-to-t from-white-500 to-transparent">
       <% @activities.each do |activity| %>
-        <%= render "activity", activity: activity %>
+        <%= render "activity", activity: %>
       <% end %>
     </ul>
   <% else %>

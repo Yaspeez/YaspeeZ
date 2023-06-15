@@ -37,6 +37,12 @@
         <span><%= @activity.postal_code %> <%= @activity.city_name %></span>
       </div>
     </li>
+    <% if @activity.handisport? %>
+      <li class="flex items-center space-x-2">
+        <%= image_tag "icones/Handisport.png", alt: "Icône Handisport", class: "w-4" %>
+        <span>Activité handisport</span>
+      </li>
+    <% end %>
     <li class="flex items-center space-x-2">
       <%= inline_svg_tag "svg/user-circle.svg", class: "w-4" %>
       <span>Genre&nbsp;: <%= @activity.gender %></span>
@@ -98,7 +104,7 @@
       <div>
         <p class="text-center italic font-light">Il n'y a pas encore de commentaire</p>
       </div>
-      <% else %>
+    <% else %>
       <div class="divide-y">
         <% @comments.each do |comment| %>
           <div class="flex justify-between items-center py-2">
