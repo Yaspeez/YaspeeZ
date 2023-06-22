@@ -6,14 +6,19 @@
           <h2 class="uppercase font-semibold text-xl">
             <%= activity.owner.nickname %>
           </h2>
-          <%= image_tag "icones/Handisport.png", alt: "Icône Handisport", class: "w-12" if activity.handisport? %>
         </div>
         <div class="flex items-center space-x-2">
-          <%= inline_svg_tag "svg/trophy.svg", class: "w-4 shrink-0 text-yellow-500" %>
+          <%= inline_svg_tag "svg/trophy.svg", class: "w-6 shrink-0 text-yellow-500" %>
           <span class="text-sm truncate"><%= activity.sport.name %></span>
         </div>
+        <% if activity.handisport? %>
+          <div class="flex items-center space-x-2">
+            <%= inline_svg_tag "svg/handisport.svg", alt: "Icône Handisport", class: "w-6 shrink-0" %>
+            <span class="text-sm truncate">Handisport</span>
+          </div>
+        <% end %>
         <div class="flex items-center space-x-2">
-          <%= inline_svg_tag "svg/map-pin.svg", class: "w-4 shrink-0" %>
+          <%= inline_svg_tag "svg/map-pin.svg", class: "w-6 shrink-0" %>
           <span class="text-sm font-medium truncate"><%= activity.city_name %></span>
         </div>
       </div>
