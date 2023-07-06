@@ -56,6 +56,8 @@ class User < ApplicationRecord
   belongs_to :sport, optional: true
   has_one_attached :avatar
   has_many :api_tokens, dependent: :destroy
+  has_many :notifications, as: :recipient, dependent: :destroy
+  has_many :notification_tokens, dependent: :destroy
   has_many :organized_activities, class_name: "Activity", foreign_key: :owner_id, dependent: :destroy
   has_many :participations, class_name: "Participant", dependent: :destroy
   has_many :activities, through: :participations
@@ -66,6 +68,8 @@ class User < ApplicationRecord
   validates :postal_code, presence: true, on: :update
 
   after_save :convert_heic_avatar_to_jpg
+
+  scope :admins, -> { where(admin: true) }
 
   geocoded_by :city_with_postal_code
   reverse_geocoded_by :latitude, :longitude

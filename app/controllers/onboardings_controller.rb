@@ -14,17 +14,22 @@ class OnboardingsController < ApplicationController
     @user = current_user
     @user.assign_attributes(onboarding_params)
 
-    results = Geocoder.search([@user.postal_code, @user.city].join(" "))
+    if @user.city.present?
+      @user.postal_code = @user.city.code_postal
+      @user.latitude = @user.city.latitude
+      @user.longitude = @user.city.longitude
+    else
+      results = Geocoder.search(@user.city)
 
-    if results.any?
-      most_accurate_result = results.first
+      if results.any?
+        most_accurate_result = results.first
 
-      @user.latitude = most_accurate_result.latitude
-      @user.longitude = most_accurate_result.longitude
+        @user.latitude = most_accurate_result.latitude
+        @user.longitude = most_accurate_result.longitude
+      end
     end
 
     @user.onboarded = true
-    @user.postal_code = City.find(params[:user][:city_id]).code_postal
 
     if @user.save(context: :update)
       redirect_to root_path

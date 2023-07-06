@@ -10,6 +10,10 @@ module Activities
         @comment.reported_by = current_user
 
         if @comment.save
+          User.admins.each do |admin|
+            # TODO: Change to deliver_later
+            ReportActivityCommentNotification.with(activity: @activity).deliver(admin)
+          end
           redirect_to activity_path(@activity), notice: "Signalement effectué avec succès."
         else
           redirect_to activity_path(@activity), alert: "Une erreur s'est produite lors de votre signalement. Veuillez réessayer."

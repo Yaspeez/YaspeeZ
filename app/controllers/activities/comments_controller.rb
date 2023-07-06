@@ -13,6 +13,8 @@ module Activities
 
       respond_to do |format|
         if @comment.save
+          # TODO: Change to deliver_later
+          ActivityCommentNotification.with(activity: @activity).deliver(@activity.owner)
           format.html { redirect_to activity_path(@activity), notice: "Commentaire ajouté avec succès." }
           format.json { render :show, status: :created, location: @comment }
         else

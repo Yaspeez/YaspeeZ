@@ -89,15 +89,18 @@ group :test do
 end
 
 # YaspeeZ dependencies
-gem "acts_as_tenant"
-gem "devise"
-gem "devise-i18n"
-gem "geocoder"
-gem "inline_svg"
-gem "money-rails"
-gem "pagy"
-gem "pg_search"
-gem "pundit"
-gem "rails-i18n"
-gem "sidekiq"
+gem "acts_as_tenant" # Multi-tenancy
+gem "apnotic" # Apple Push Notifications
+gem "devise" # Authentication
+gem "devise-i18n" # Devise translations
+gem "geocoder" # Geocoding
+gem "googleauth" # Google OAuth
+gem "inline_svg" # SVGs
+gem "money-rails" # Money
+gem "noticed" # Notifications
+gem "pagy" # Pagination
+gem "pg_search" # Search
+gem "pundit" # Authorization
+gem "rails-i18n" # Rails translations
+gem "sidekiq" # Background jobs
 

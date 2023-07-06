@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_10_165002) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_06_144102) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -114,6 +114,27 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_10_165002) do
     t.index ["reported_by_id"], name: "index_comments_on_reported_by_id"
   end
 
+  create_table "notification_tokens", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.string "platform"
+    t.string "token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_notification_tokens_on_user_id"
+  end
+
+  create_table "notifications", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "recipient_type", null: false
+    t.uuid "recipient_id", null: false
+    t.string "type", null: false
+    t.jsonb "params"
+    t.datetime "read_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["read_at"], name: "index_notifications_on_read_at"
+    t.index ["recipient_type", "recipient_id"], name: "index_notifications_on_recipient"
+  end
+
   create_table "participants", force: :cascade do |t|
     t.uuid "activity_id", null: false
     t.uuid "user_id", null: false
@@ -174,6 +195,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_10_165002) do
   add_foreign_key "comments", "activities"
   add_foreign_key "comments", "users", column: "author_id"
   add_foreign_key "comments", "users", column: "reported_by_id"
+  add_foreign_key "notification_tokens", "users"
   add_foreign_key "participants", "activities"
   add_foreign_key "participants", "users"
   add_foreign_key "users", "cities"

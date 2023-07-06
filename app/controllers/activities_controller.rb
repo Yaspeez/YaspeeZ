@@ -53,6 +53,7 @@ class ActivitiesController < ApplicationController
 
     respond_to do |format|
       if @activity.save
+        # TODO: Notify prospective participants
         format.html { redirect_to activity_url(@activity), notice: "L'activité a été créée avec succès !" }
         format.json { render :show, status: :created, location: @activity }
       else

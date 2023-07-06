@@ -14,6 +14,8 @@ module Activities
       authorize [:activity, @participation]
 
       if @participation.save
+        # TODO: Change to deliver_later
+        ActivityRegistrationNotification.with(activity: @activity).deliver(@activity.owner)
         redirect_to @activity, notice: "Vous êtes inscrit avec succès à cette activité !"
       else
         redirect_to @activity, alert: "Une erreur s'est produite lors de votre inscription à cette activité."
