@@ -8,6 +8,7 @@ module Activities
       def create
         @comment.reported_at = DateTime.now
         @comment.reported_by = current_user
+        authorize [:activity, @comment]
 
         if @comment.save
           User.admins.each do |admin|

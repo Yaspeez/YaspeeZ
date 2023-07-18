@@ -7,6 +7,7 @@
 - Ruby 3.2.2 or higher
 - bundler - `gem install bundler`
 - PostgreSQL
+- Redis
 
 ### Initial setup
 

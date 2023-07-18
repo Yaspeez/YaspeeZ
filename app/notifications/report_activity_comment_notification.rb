@@ -14,7 +14,7 @@ class ReportActivityCommentNotification < ApplicationNotification
   end
 
   def ios_format(apn)
-    apn.alert = "Nouvelle signalement de commentaire"
+    apn.alert = "Nouveau signalement de commentaire"
     apn.custom_payload = {
       url: activity_url(params[:activity]),
     }

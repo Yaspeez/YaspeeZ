@@ -1,3 +1,6 @@
+Rails.application.routes.default_url_options[:host] = Rails.application.credentials.dig(:host)
+Rails.application.routes.default_url_options[:port] = Rails.application.credentials.dig(:port)
+
 Rails.application.routes.draw do
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 

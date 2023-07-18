@@ -38,3 +38,4 @@
 /config/credentials/test.key
 
 /.idea
+/config/certs/*
