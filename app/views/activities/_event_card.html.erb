@@ -1,0 +1,23 @@
+<%= link_to activity_path(activity) do %>
+  <div class="bg-white shadow-md rounded-md divide-y divide-gray-200 overflow-hidden text-xs cursor-pointer">
+    <div class="py-2 px-4 flex flex-col space-y-3">
+      <div class="flex items-center space-x-3">
+        <div class="bg-cover bg-center rounded-full w-12 h-12  shrink-0" style="background-image: url(<%= url_for(activity.owner.avatar.present? ? activity.owner.avatar : "" ) %>);">
+        </div>
+        <span class="text-xl"><%= activity.owner.nickname %></span>
+      </div>
+      <span class="text-base"><%= activity.sport.name %></span>
+      <div class="flex items-center space-x-2">
+        <%= inline_svg_tag "svg/clock.svg", class: "w-4 shrink-0" %>
+        <span><%= activity.starts_at.strftime("%d/%m/%Y - %Hh%M") %></span>
+      </div>
+    </div>
+    <div class="px-4 py-1 flex items-center space-x-2">
+      <%= inline_svg_tag "svg/map-pin.svg", class: "w-4 shrink-0" %>
+      <div class="flex flex-col">
+        <span class="font-bold"><%= activity.address %></span>
+        <span><%= activity.postal_code %> <%= activity.city_name %></span>
+      </div>
+    </div>
+  </div>
+<% end %>

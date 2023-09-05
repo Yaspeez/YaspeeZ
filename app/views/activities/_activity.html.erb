@@ -1,0 +1,27 @@
+<%= link_to activity_path(activity) do %>
+  <div class="bg-cover bg-center rounded-xl w-full h-64 shadow-xl" style="background-image: url(<%= url_for(activity.owner.avatar.present? ? activity.owner.avatar : "" ) %>);">
+    <div class="text-white h-full w-full flex flex-col justify-end rounded-lg bg-gradient-to-t from-gray-500/[0.75] to-gray-500/[0.15]" >
+      <div class="p-4">
+        <div class="flex items-center space-x-2">
+          <h2 class="uppercase font-semibold text-xl">
+            <%= activity.owner.nickname %>
+          </h2>
+        </div>
+        <div class="flex items-center space-x-2">
+          <%= inline_svg_tag "svg/trophy.svg", class: "w-6 shrink-0 text-yellow-500" %>
+          <span class="text-sm truncate"><%= activity.sport.name %></span>
+        </div>
+        <% if activity.handisport? %>
+          <div class="flex items-center space-x-2">
+            <%= inline_svg_tag "svg/handisport.svg", alt: "Icône Handisport", class: "w-6 shrink-0" %>
+            <span class="text-sm truncate">Handisport</span>
+          </div>
+        <% end %>
+        <div class="flex items-center space-x-2">
+          <%= inline_svg_tag "svg/map-pin.svg", class: "w-6 shrink-0" %>
+          <span class="text-sm font-medium truncate"><%= activity.city_name %></span>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

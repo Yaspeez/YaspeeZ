@@ -1,0 +1,3 @@
+<% @cities.each do |city| %>
+  <li class="list-group-item" role="option" data-autocomplete-value="<%= city.id %>"><%= city.nom_de_la_commune %></li>
+<% end %>

@@ -1,0 +1,84 @@
+<%= form_with(model: activity, class: "space-y-3") do |form| %>
+  <% if activity.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+      <h2><%= pluralize(activity.errors.count, "error") %> prohibited this activity from being saved:</h2>
+
+      <ul>
+        <% activity.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="flex flex-col w-full">
+    <%= form.label :sport_id, "Sport", class: "y-label" %>
+    <%= form.collection_select :sport_id, Sport.all, :id, :name, { prompt: "Choisir un sport" }, data: { controller: "slim" }, class: "y-form", required: true %>
+  </div>
+
+  <div class="flex flex-col">
+    <%= form.label :level, "Niveau", class: "y-label" %>
+    <%= form.select :level, Activity.levels_select_for, { prompt: "Sélectionnez un niveau" }, class: "y-form", required: true %>
+  </div>
+
+  <div class="flex items-center space-x-2">
+    <%= form.label :handisport, "Handisport", class: "y-label" %>
+    <%= form.check_box :handisport, class: "y-form" %>
+  </div>
+
+  <div class="flex flex-col">
+    <%= form.label :description, "Description", class: "y-label" %>
+    <%= form.text_area :description, class: "y-form", placeholder: "Renseignez une description...", required: true %>
+  </div>
+
+  <div class="flex flex-col space-y-1">
+    <span classa="y-label">Lieu de l'activité</span>
+    <div class="flex flex-col">
+      <%= form.label :address, "Adresse", class: "text-sm italic" %>
+      <%= form.text_field :address, class: "y-form", placeholder: "Soyez le plus précis possible...", required: true %>
+    </div>
+    <div data-controller="autocomplete" data-autocomplete-url-value="/cities/autocomplete" data-autocomplete-min-length-value="3" data-autocomplete-query-param-value="q" class="flex flex-col">
+      <%= form.label :city_name, "Ville / Code postal", class: "text-sm italic" %>
+      <div class="relative">
+        <%= form.text_field :city_name, class: "y-form w-full", data: { autocomplete_target: "input" }, required: true %>
+        <%= form.hidden_field :city_id, data: { autocomplete_target: "hidden" } %>
+        <ul class="list-group" data-autocomplete-target="results"></ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex flex-col">
+    <%= form.label :starts_at, "Date et heure", class: "y-label" %>
+    <%= form.datetime_local_field :starts_at, class: "y-form", required: true %>
+  </div>
+
+  <div class="flex flex-col">
+    <%= form.label :duration_in_minutes, "Durée de l'activité", class: "y-label" %>
+    <div class="flex items-center">
+      <%= form.number_field :duration_in_minutes, class: "y-form w-full", required: true %>
+      <span class="flex flex-col pl-2 min-w-min">min</span>
+    </div>
+  </div>
+
+  <div class="flex flex-col">
+    <%= form.label :gender, "Participants", class: "y-label" %>
+    <%= form.select :gender, Activity.genders_select_for, { prompt: "Sélectionnez le type de participants" }, class: "y-form", required: true %>
+  </div>
+
+  <div class="flex flex-col">
+    <%= form.label :maximum_participants_number, "Nombre max de participants", class: "y-label" %>
+    <%= form.number_field :maximum_participants_number, class: "y-form", required: true %>
+  </div>
+
+  <div class="flex flex-col">
+    <%= form.label :per_participant_price, "Prix par participant", class: "y-label" %>
+    <div class="flex items-center">
+      <%= form.number_field :per_participant_price, step: 0.01, class: "y-form w-full", required: true %>
+      <span class="flex flex-col pl-2 min-w-min">€</span>
+    </div>
+  </div>
+
+  <div class="inline mt-4 flex justify-center">
+    <%= form.submit "Enregistrer", class: "y-btn y-btn-lockmara" %>
+  </div>
+<% end %>

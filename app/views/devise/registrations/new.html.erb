@@ -1,0 +1,30 @@
+<div class="h-screen overflow-y-auto">
+  <div class="rounded-b-2xl bg-yaspeez shadow-inner-lg text-white p-4">
+    <%= image_tag "logo.png", class: "h-20 mx-auto my-10" %>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |form| %>
+      <div class="grid place-items-center gap-3">
+        <%= form.email_field :email, autocomplete: "email", placeholder: "E-mail", class: "y-form" %>
+        <%= form.password_field :password, autocomplete: "current-password", placeholder: "Mot de passe", class: "y-form" %>
+        <%= form.password_field :password_confirmation, autocomplete: "current-password", placeholder: "Mot de passe", class: "y-form" %>
+        <% if @minimum_password_length %>
+          <em class="text-sm"><%= t('devise.shared.minimum_password_length', count: @minimum_password_length) %></em>
+        <% end %>
+        <div class="space-y-1 py-2">
+          <div class="flex items-center space-x-0.5 text-sm">
+            <%= check_box_tag :cgu %>
+            <%= label_tag :cgu, "J'accepte les conditions d'utilisation de YaspeeZ", class: "tracking-tighter", required: true %>
+          </div>
+          <div class="flex items-center space-x-0.5 text-sm">
+            <%= check_box_tag :news %>
+            <%= label_tag :news, "Je souhaite recevoir les nouvelles YaspeeZ", class: "tracking-tighter" %>
+          </div>
+        </div>
+        <%= form.submit t('.sign_up'), class: "y-btn-u y-btn-gray" %>
+      </div>
+      <div class="flex justify-center space-x-2 mt-10">
+        <span>Vous avez déjà un compte&nbsp;?</span>
+        <%= link_to "Connexion", new_session_path(resource_name), class:"underline" %>
+      </div>
+    <% end %>
+  </div>
+</div>

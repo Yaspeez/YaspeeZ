@@ -1,0 +1,49 @@
+<div class="relative rounded-b-2xl bg-yaspeez shadow-inner-lg text-white overflow-hidden">
+  <% if turbo_native_app? %>
+    <div data-controller="toggle">
+      <button id="dropdownDefaultButton" data-action="toggle-nav-bar@window->toggle#toggle toggle#toggle" type="button" class="absolute top-0">
+      </button>
+      <%= render "shared/menu" %>
+    </div>
+  <% end %>
+  <div class="w-full h-full flex items-center overflow-hidden opacity-50 shrink-0 absolute">
+    <%= image_tag yield(:header_background) %>
+  </div>
+  <div class="relative p-4">
+    <% unless turbo_native_app? %>
+      <div class="flex justify-between z-20">
+        <% if content_for(:header_left_nav) %>
+          <%= yield(:header_left_nav) %>
+        <% else %>
+          <% if content_for(:header_back_link) %>
+            <%= link_to yield(:header_back_link) do %>
+              <%= inline_svg_tag "svg/chevron-left.svg", class: "w-6" %>
+            <% end %>
+          <% else %>
+            <%= link_to :back do %>
+              <%= inline_svg_tag "svg/chevron-left.svg", class: "w-6" %>
+            <% end %>
+          <% end %>
+        <% end %>
+
+        <% if content_for(:header_right_nav) %>
+          <%= yield(:header_right_nav) %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div class="z-20 mb-5">
+      <% if content_for(:header_logo) %>
+        <%= image_tag yield(:header_logo), class: "h-20 mx-auto" %>
+      <% end %>
+
+      <% if content_for(:header_title) %>
+        <h1 class="y-header-title"><%= yield(:header_title) %></h1>
+      <% end %>
+    </div>
+
+    <% if content_for(:header_main) %>
+      <%= yield(:header_main) %>
+    <% end %>
+  </div>
+</div>

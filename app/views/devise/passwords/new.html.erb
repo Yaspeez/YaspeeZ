@@ -1,0 +1,14 @@
+<div class="h-screen overflow-y-auto">
+  <div class="rounded-b-2xl bg-yaspeez shadow-inner-lg text-white p-4">
+    <%= image_tag "logo.png", class: "h-20 mx-auto my-10" %>
+    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+      <div class="flex flex-col items-center space-y-3">
+        <h2 class="font-bold italic"><%= t(".forgot_your_password") %></h2>
+        <%= f.email_field :email, autocomplete: "email", placeholder: "E-mail", class: "y-form" %>
+        <%= f.submit t(".send_me_reset_password_instructions"), class: "y-btn-u y-btn-gray" %>
+      </div>
+    <% end %>
+    <%= render "devise/shared/links" %>
+  </div>
+</div>

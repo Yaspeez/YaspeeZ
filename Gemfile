@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.1.3"
+ruby "3.2.2"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4", ">= 7.0.4.2"
@@ -49,7 +49,7 @@ gem "bootsnap", require: false
 # gem "sassc-rails"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-# gem "image_processing", "~> 1.2"
+gem "image_processing", "~> 1.2"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -72,6 +72,7 @@ group :development do
   gem "bundler-audit", github: "rubysec/bundler-audit"
   gem "better_html", require: false
   gem "erb_lint", require: false
+  gem "rails-erd"
   gem "letter_opener"
   gem "letter_opener_web"
   gem "rubocop", require: false
@@ -88,7 +89,18 @@ group :test do
 end
 
 # YaspeeZ dependencies
-gem "acts_as_tenant"
-gem "devise"
-gem "devise-i18n"
-gem "pundit"
+gem "acts_as_tenant" # Multi-tenancy
+gem "apnotic" # Apple Push Notifications
+gem "devise" # Authentication
+gem "devise-i18n" # Devise translations
+gem "geocoder" # Geocoding
+gem "googleauth" # Google OAuth
+gem "inline_svg" # SVGs
+gem "money-rails" # Money
+gem "noticed" # Notifications
+gem "pagy" # Pagination
+gem "pg_search" # Search
+gem "pundit" # Authorization
+gem "rails-i18n" # Rails translations
+gem "sidekiq" # Background jobs
+

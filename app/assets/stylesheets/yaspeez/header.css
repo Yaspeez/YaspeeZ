@@ -1,0 +1,30 @@
+.bg-yaspeez {
+    background: rgb(0,3,191);
+    background: linear-gradient(33deg, rgba(0,3,191,1) 0%, rgba(0,4,255,1) 50%, rgba(0,114,192,1) 100%);
+}
+
+.header-blue {
+    background: rgb(0,3,191);
+    background: linear-gradient(33deg, rgba(0,3,191,1) 0%, rgba(0,4,255,1) 50%, rgba(0,114,192,1) 100%);
+    width: 100%;
+    padding: 25px;
+    border-bottom-left-radius: 10%;
+    border-bottom-right-radius: 10%;
+    color:white;
+}
+
+.y-header-pro {
+    @apply text-lg font-light italic
+}
+
+.y-header-title {
+    @apply uppercase text-center text-xl font-semibold
+}
+
+.y-subheader-title {
+    @apply text-center text-lg font-light italic
+}
+
+.y-header-section {
+    @apply w-full
+}

@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "first-deploy": "bundle exec rake db:migrate",
+    "postdeploy": "bundle exec rake db:migrate"
+  }
+}

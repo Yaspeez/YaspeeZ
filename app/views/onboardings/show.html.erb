@@ -1,0 +1,43 @@
+<% content_for :header_title, "Mon profil" %>
+<% content_for :header_main  do %>
+  <div class="space-y-4 flex flex-col items-center">
+    <p class="y-subheader-title">Commencez par créer votre profil</p>
+  </div>
+<% end %>
+<% content_for :header_background, "logo.png" %>
+
+<%= form_with(model: @user, url: onboarding_path, method: :post, class: "h-[calc(100%-6.5rem)] overflow-y-auto") do |form| %>
+  <div class="y-card-main">
+    <div class="flex flex-col">
+      <%= form.label :nickname, "Pseudo *" %>
+      <%= form.text_field :nickname, class: "y-form", required: true %>
+    </div>
+    <div class="flex flex-col">
+      <%= form.label :age, "Âge *" %>
+      <%= form.number_field :age, class: "y-form", required: true %>
+    </div>
+    <div data-controller="autocomplete" data-autocomplete-url-value="/cities/autocomplete" data-autocomplete-min-length-value="3" data-autocomplete-query-param-value="q" class="flex flex-col">
+      <%= form.label :city_name, "Ville *" %>
+      <div class="relative">
+        <%= form.text_field :city_name, class: "y-form w-full", data: { autocomplete_target: "input" }, required: true %>
+        <%= form.hidden_field :city_id, data: { autocomplete_target: "hidden" } %>
+        <ul class="list-group" data-autocomplete-target="results"></ul>
+      </div>
+    </div>
+    <div class="flex flex-col">
+      <%= form.label :avatar, "Photo de profil" %>
+      <div class="y-form p-2 truncate">
+        <%= form.file_field :avatar, accept: "image/*" %>
+      </div>
+    </div>
+    <div class="flex flex-col">
+      <%= form.label :sport_id, "Sport favori" %>
+      <div class="y-form p-2 truncate">
+        <%= form.collection_select :sport_id, Sport.all, :id, :name, { prompt: "Sélectionnez votre sport favori", include_blank: true }, data: { controller: "slim" }, class: "block w-1/2 min-w-0 flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm mx-1" %>
+      </div>
+    </div>
+  </div>
+  <div class="flex justify-center items-center py-5">
+    <%= form.submit "Enregistrer", class: "y-btn-u" %>
+  </div>
+<% end %>

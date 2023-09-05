@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html class="h-screen bg-white">
   <head>
-    <title>Yaspeez</title>
+    <title>YaspeeZ</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -11,8 +11,14 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+  <body class="h-screen w-full">
+    <%= render "shared/flash" %>
+    <%= render "shared/menu" %>
+
+    <main class="z-0 w-full h-full" data-controller="header">
+      <% if user_signed_in? %>
+        <%= render "shared/header" %>
+      <% end %>
       <%= yield %>
     </main>
   </body>

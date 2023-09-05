@@ -1,0 +1,21 @@
+<%= link_to sport do %>
+  <div class="relative border-b border-gray-200">
+    <ul role="list" class="relative z-0 divide-y divide-gray-200">
+      <li>
+        <div class="relative flex items-center space-x-3 px-6 py-5 hover:bg-gray-50">
+          <div class="flex-shrink-0">
+            <img class="h-10 w-10 rounded-full" src="https://cdn-icons-png.flaticon.com/512/33/33838.png" alt="">
+          </div>
+          <div class="min-w-0 flex-1">
+            <%= link_to sport, class: "focus:outline-none" do %>
+              <!-- Extend touch target to entire panel -->
+              <span class="absolute inset-0" aria-hidden="true"></span>
+              <p class="font-xl text-gray-900 font-semibold"><%= sport.name %></p>
+            <% end %>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+<% end %>
+

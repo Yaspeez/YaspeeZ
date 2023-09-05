@@ -1,0 +1,7 @@
+.y-menu-link {
+  @apply flex items-center space-x-2 p-2 rounded-lg hover:bg-deep-blue dark:hover:bg-yaspeez-blue
+}
+
+.y-menu-svg {
+  @apply w-6 flex-shrink-0 transition duration-75
+}

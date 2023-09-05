@@ -1,0 +1,49 @@
+<% content_for :header_logo, "logo.png" %>
+<% content_for :header_title, "Sports à proximité" %>
+<% content_for :header_back_link, dashboard_path %>
+
+<% content_for :header_main do %>
+  <div class="flex justify-center">
+    <%= link_to "J'organise une activité", new_activity_path(sport_id: @sport&.id), class: "y-btn y-btn-white" %>
+  </div>
+<% end %>
+
+<div class="y-card-main space-y-5">
+  <%= form_with(url: activities_path, method: :get, class: "space-y-2") do |form| %>
+    <div class="flex space-x-2 items-center">
+      <%= form.label "Sport", class: "y-label" %>
+      <%= form.collection_select :sport_id, Sport.all, :id, :name, { selected: @sport&.id, prompt: "Sélectionnez un sport" }, data: { controller: "slim" }, class: "w-full" %>
+    </div>
+    <div class="flex space-x-2 items-center" data-controller="distance">
+      <%= form.label :distance, "Distance", class: "y-label" %>
+      <%= form.range_field :distance, min: 0, max: 50, value: @distance, step: 5, class: "w-full h-2 rounded-lg appearance-none cursor-pointer bg-yaspeez", data: { "distance-target": "rangeField", action: "input->distance#changeRange"}%>
+      <p data-distance-target="showDistance"><%= @distance %>km</p>
+      <%= form.button class: "y-btn y-btn-yaspeez-blue" do %>
+        <%= inline_svg_tag "svg/search.svg", class: "w-6" %>
+      <% end %>
+    </div>
+    <div class="flex space-x-2 items-center">
+      <%= form.label :handisport, "Handisport", class: "y-label" %>
+      <%= form.check_box :handisport, checked: @handisport, class: "y-form" %>
+    </div>
+  <% end %>
+
+  <% if @activities.present? %>
+    <ul class="list-none grid grid-cols-2 gap-4 -mx-5 p-5 bg-gradient-to-t from-white-500 to-transparent">
+      <% @activities.each do |activity| %>
+        <%= render "activity", activity: %>
+      <% end %>
+    </ul>
+  <% else %>
+    <div class="flex justify-center items-center text-sm italic space-x-2">
+      <%= inline_svg_tag "svg/face-frown.svg", class: "w-5 shrink-0" %>
+      <% if @sport.eql?(current_user.sport) %>
+        <p>Aucune activité de votre sport favori à <%= @distance %> km autour de chez vous.</p>
+      <% elsif @sport.present? %>
+        <p><%= @sport.name %> : aucune activité à <%= @distance %> km autour de chez vous !</p>
+      <% else %>
+        <p>Aucune activité à <%= @distance %> km autour de chez vous !</p>
+      <% end %>
+    </div>
+  <% end %>
+</div>
