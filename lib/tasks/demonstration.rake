@@ -9,7 +9,7 @@ namespace :demonstration do
     owner = User.find_by(email: "cyril@dilolabs.fr")
 
     CSV.foreach(addresses_file_path, headers: true) do |address|
-      4.times do
+      16.times do
         activity = Activity.new(
           address: address["address"],
           city_name: address["city"],

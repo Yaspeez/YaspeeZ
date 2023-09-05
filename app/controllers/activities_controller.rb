@@ -13,7 +13,7 @@ class ActivitiesController < ApplicationController
     @sport = Sport.find(params[:sport_id]) if params[:sport_id].present?
     @handisport = params[:handisport].eql?("1")
 
-    activities = Activity.future.near([current_user.latitude, current_user.longitude], @distance, units: :km).order(starts_at: :asc)
+    activities = Activity.future.order(starts_at: :asc).near([current_user.latitude, current_user.longitude], @distance, units: :km)
     activities = activities.where(sport: @sport) if @sport.present?
     activities = activities.handisports if @handisport
 

@@ -1,4 +1,4 @@
-<div class="relative rounded-b-2xl bg-yaspeez shadow-inner-lg text-white">
+<div class="relative rounded-b-2xl bg-yaspeez shadow-inner-lg text-white overflow-hidden">
   <% if turbo_native_app? %>
     <div data-controller="toggle">
       <button id="dropdownDefaultButton" data-action="toggle-nav-bar@window->toggle#toggle toggle#toggle" type="button" class="absolute top-0">
@@ -6,7 +6,9 @@
       <%= render "shared/menu" %>
     </div>
   <% end %>
-  <%= image_tag yield(:header_background), class: "h-full left-1/2 -translate-x-1/2 opacity-25 absolute" %>
+  <div class="w-full h-full flex items-center overflow-hidden opacity-50 shrink-0 absolute">
+    <%= image_tag yield(:header_background) %>
+  </div>
   <div class="relative p-4">
     <% unless turbo_native_app? %>
       <div class="flex justify-between z-20">

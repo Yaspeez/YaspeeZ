@@ -15,9 +15,7 @@
     <% else %>
       <p>Activité organisée par</p>
       <div class="flex items-center space-x-4">
-        <div class="w-14 h-14 flex items-center overflow-hidden rounded-full shrink-0">
-          <%= image_tag url_for(@activity.owner.avatar) if @activity.owner.avatar.attached? %>
-        </div>
+        <div class="bg-cover bg-center rounded-full w-14 h-14 shrink-0" style="background-image: url(<%= url_for(@activity.owner.avatar) if @activity.owner.avatar.attached? %>);"></div>
         <div class="flex flex-col">
           <span class="text-gray-500"><%= @activity.owner.nickname %></span>
           <%= link_to "Voir le profil", athlete_path(@activity.owner), class: "text-blue-500 underline" %>
