@@ -1,6 +1,6 @@
 class ApplicationNotification < Noticed::Base
   def fcm_credentials
-    JSON.parse(File.read(Rails.root.join("config/certs/fcm/fcm.json")))
+    JSON.parse(File.read(Rails.root.join("config/certs/fcm.json")))
   end
 
   def fcm_device_tokens(recipient)
@@ -12,7 +12,7 @@ class ApplicationNotification < Noticed::Base
   end
 
   def ios_cert_path
-    Rails.root.join("config", "certs", "ios", "apns.p8")
+    Rails.root.join("config", "certs", "apns.p8")
   end
 
   def ios_device_tokens(recipient)
