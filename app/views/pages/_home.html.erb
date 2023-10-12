@@ -1,6 +1,6 @@
-<div class="grid place-content-between h-screen bg-cover bg-right shrink-0 p-20" style="background-position: 66% 100%; background-image: url(<%= image_path "runners.jpg" %>);">
-  <div>
-    <%= image_tag "logo.png", class: "h-20 mx-auto" %>
+<div class="grid place-items-center h-screen bg-cover bg-right p-20" style="background-position: 66% 100%; background-image: url(<%= image_path "runners.jpg" %>);">
+  <div class="flex">
+    <%= image_tag "logo.png", class: "h-20 w-64 shrink-0" %>
   </div>
   <div class="grid place-items-center gap-3">
     <%= link_to "Créer un compte", new_user_registration_path, class: "y-btn-u y-btn-menu" %>
