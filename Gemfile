@@ -102,5 +102,7 @@ gem "pagy" # Pagination
 gem "pg_search" # Search
 gem "pundit" # Authorization
 gem "rails-i18n" # Rails translations
+gem "sentry-rails" # Error reporting
+gem "sentry-ruby" # Error reporting
 gem "sidekiq" # Background jobs
 
